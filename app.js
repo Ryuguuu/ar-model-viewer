@@ -61,6 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
         marker.addEventListener('markerLost', function() {
             console.log(`マーカー ${index} を見失いました`);
         });
+        
+        // GLBファイルの読み込み状態を監視
+        const gltfEntity = marker.querySelector('[gltf-model]');
+        if (gltfEntity) {
+            console.log(`GLB entity found for marker ${index}:`, gltfEntity);
+            
+            gltfEntity.addEventListener('model-loaded', function() {
+                console.log(`GLB model loaded for marker ${index}`);
+            });
+            
+            gltfEntity.addEventListener('model-error', function(error) {
+                console.error(`GLB model error for marker ${index}:`, error);
+            });
+        }
     });
 
     // 説明を閉じるボタンの処理
