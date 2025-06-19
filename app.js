@@ -13,6 +13,23 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
         }, 1000);
+        
+        // AR.jsの初期化状態を確認
+        console.log('AR.js scene loaded');
+        
+        // AR.jsのコンポーネントを取得
+        const arjs = scene.components['arjs'];
+        if (arjs) {
+            console.log('AR.js component found:', arjs);
+            
+            // markersAreaEnabledの状態を定期的にチェック
+            setInterval(() => {
+                if (arjs.arProfile && arjs.arProfile.trackingBackend) {
+                    console.log('markersAreaEnabled:', arjs.arProfile.trackingBackend.markersAreaEnabled);
+                    console.log('AR.js state:', arjs.arProfile.trackingBackend);
+                }
+            }, 2000);
+        }
     });
 
     // カメラアクセスエラー時の処理
