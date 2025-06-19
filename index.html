@@ -28,17 +28,15 @@
         <button id="close-instructions">閉じる</button>
     </div>
 
-    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;"
              renderer="logarithmicDepthBuffer: true; antialias: true; precision: mediump;"
              vr-mode-ui="enabled: false">
         <!-- カメラ -->
         <a-entity camera></a-entity>
         
         <!-- デフォルトの3Dモデル（赤い箱） -->
-        <a-marker preset="hiro">
-            <a-marker type="pattern" url="./maker/AR.js Marker.patt">
-                <a-entity potision="0 0.5 0" rotation="0 0 0" scale="0.3 0.3 0.3" gltf-model="./models/Kiah小物きのこ6_5.glb"></a-entity>
-            </a-marker>
+        <a-marker type="pattern" url="./maker/AR.jsMarker.patt">
+            <a-entity position="0 0.5 0" rotation="0 0 0" scale="0.3 0.3 0.3" gltf-model="./models/Kiah小物きのこ6_5.glb"></a-entity>
         </a-marker>
          
     </a-scene>
