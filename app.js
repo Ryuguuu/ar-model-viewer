@@ -1,6 +1,8 @@
 // アプリケーションの主要な機能を実装するJavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+    
     // 要素の取得
     const loadingScreen = document.getElementById('loading-screen');
     const instructions = document.getElementById('instructions');
@@ -9,7 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ARシーンが読み込まれたらローディング画面を非表示
     const scene = document.querySelector('a-scene');
+    console.log('Scene element:', scene);
+    
     scene.addEventListener('loaded', function () {
+        console.log('A-Frame scene loaded');
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
         }, 1000);
@@ -27,26 +32,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (arjs.arProfile && arjs.arProfile.trackingBackend) {
                     console.log('markersAreaEnabled:', arjs.arProfile.trackingBackend.markersAreaEnabled);
                     console.log('AR.js state:', arjs.arProfile.trackingBackend);
+                } else {
+                    console.log('AR.js profile not ready yet');
                 }
             }, 2000);
+        } else {
+            console.log('AR.js component not found');
         }
     });
 
     // カメラアクセスエラー時の処理
     scene.addEventListener('camera-error', function() {
+        console.error('Camera error occurred');
         alert('カメラへのアクセスができませんでした。ブラウザの設定を確認してください。');
     });
 
     // マーカーが検出されたときの処理
-    const marker = document.querySelector('a-marker');
-    marker.addEventListener('markerFound', function() {
-        console.log('マーカーを検出しました');
-        // マーカー検出時に追加のアニメーションなどを実装可能
-    });
+    const markers = document.querySelectorAll('a-marker');
+    console.log('Found markers:', markers.length);
+    
+    markers.forEach((marker, index) => {
+        console.log(`Setting up marker ${index}:`, marker);
+        
+        marker.addEventListener('markerFound', function() {
+            console.log(`マーカー ${index} を検出しました`);
+        });
 
-    // マーカーを見失ったときの処理
-    marker.addEventListener('markerLost', function() {
-        console.log('マーカーを見失いました');
+        marker.addEventListener('markerLost', function() {
+            console.log(`マーカー ${index} を見失いました`);
+        });
     });
 
     // 説明を閉じるボタンの処理
